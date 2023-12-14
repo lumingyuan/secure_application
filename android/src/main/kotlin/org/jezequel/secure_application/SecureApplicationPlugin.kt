@@ -59,6 +59,13 @@ public class SecureApplicationPlugin: FlutterPlugin, MethodCallHandler, Activity
   @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   fun connectListener() {
     // not used for now but might be used to add some features in the future
+    instance.activity?.window?.clearFlags(LayoutParams.FLAG_SECURE)
+  }
+  
+  @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+  fun connectPauseListener() {
+    //切到后台添加 Flag
+    instance.activity?.window?.addFlags(LayoutParams.FLAG_SECURE)
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -80,10 +87,10 @@ public class SecureApplicationPlugin: FlutterPlugin, MethodCallHandler, Activity
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "secure") {
-      activity?.window?.addFlags(LayoutParams.FLAG_SECURE)
+      // activity?.window?.addFlags(LayoutParams.FLAG_SECURE)
       result.success(true)
     } else if (call.method == "open") {
-      activity?.window?.clearFlags(LayoutParams.FLAG_SECURE)
+      // activity?.window?.clearFlags(LayoutParams.FLAG_SECURE)
         result.success(true)
     } else {
       result.success(true)
