@@ -93,20 +93,22 @@ public class SecureApplicationPlugin : FlutterPlugin, MethodCallHandler, Activit
                 _secured = true // 设置为锁定状态
                 secureScreen()
             }
+
             "open" -> {
                 _secured = false // 设置为非锁定状态
                 openScreen()
             }
+
             else -> result.success(true)
         }
     }
 
     private fun secureScreen() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        activity?.window?.addFlags(LayoutParams.FLAG_SECURE)
     }
 
     private fun openScreen() {
-        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        activity?.window?.clearFlags(LayoutParams.FLAG_SECURE)
     }
 
 
